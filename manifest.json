@@ -5,10 +5,6 @@
         "name": "transposit/airtable:v2.*.*",
         "alias": "airtable"
       }, {
-        "name": "nina/gcal_copy:latest",
-        "alias": "gcal_copy",
-        "exposeOperations": true
-      }, {
         "name": "transposit/google_calendar:v1.*.*",
         "alias": "google_calendar"
       }],
