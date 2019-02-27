@@ -14,6 +14,19 @@
       "operations": [{
         "id": "InitialSync",
         "function": {
+          "parameters": [{
+            "name": "baseId",
+            "default": {
+              "text": "appb2uc6fso2uEzDh"
+            },
+            "type": "STRING"
+          }, {
+            "name": "table",
+            "default": {
+              "text": "Webhook"
+            },
+            "type": "STRING"
+          }],
           "js": "InitalSync.js"
         },
         "access": {
@@ -49,15 +62,7 @@
             "type": "STRING",
             "required": true
           }],
-          "tql": "SELECT * FROM gcal_copy.personal_google_calendar.watch_calendar_events\n  WHERE calendarId=@calendarId\n  AND $body=(SELECT {\n    'resourceId' : 'transposit_watcher',\n    'address': 'https://api.transposit.com/app/nina/gcal_copy_webhook/api/v1/execute-http/webhook?api_key=2r22vejsrjutrhihp17anuqd8i',\n    'payload' : true,\n    'kind' : 'api#channel',\n\t'type': 'web_hook'\n  })\n  AND $body.id = @webhookId\n  \n  \n  -- execute-http/webhook?api_key=a7sa61ivbdr5i7bhdgr8q6m1av\n  \n\n"
-        }
-      }, {
-        "id": "GetSyncStatus",
-        "tql": {
-          "tql": "SELECT * FROM gcal_copy.GetSyncStatus\n  WHERE table='Webhook'"
-        },
-        "access": {
-          "requireUser": true
+          "tql": "SELECT * FROM gcal_copy.personal_google_calendar.watch_calendar_events\n  WHERE calendarId=@calendarId\n  AND $body=(SELECT {\n    'resourceId' : 'transposit_watcher',\n    'address': 'https://api.transposit.com/app/transposit-sample/calendar_placeholder/api/v1/execute-http/webhook?api_key=2r22vejsrjutrhihp17anuqd8i',\n    'payload' : true,\n    'kind' : 'api#channel',\n\t'type': 'web_hook'\n  })\n  AND $body.id = @webhookId\n \n  \n\n"
         }
       }, {
         "id": "refresh_all_webhooks",
@@ -85,6 +90,18 @@
             "name": "recordId",
             "type": "STRING",
             "required": true
+          }, {
+            "name": "baseId",
+            "default": {
+              "text": "appb2uc6fso2uEzDh"
+            },
+            "type": "STRING"
+          }, {
+            "name": "table",
+            "default": {
+              "text": "Webhook"
+            },
+            "type": "STRING"
           }],
           "js": "UnSync.js"
         },
@@ -92,19 +109,69 @@
           "requireUser": true
         }
       }, {
-        "id": "get_my_settings",
-        "tql": {
-          "tql": "SELECT * FROM google_calendar.get_my_settings\n  WHERE syncToken='<string>'\n  AND quotaUser='<string>'\n  LIMIT 10"
-        }
-      }, {
-        "id": "watch_settings",
-        "tql": {
-          "tql": "SELECT * FROM google_calendar.watch_settings\n  WHERE syncToken='<string>'\n  AND quotaUser='<string>'\n  AND $body=(SELECT {\n    'resourceId' : '<string>',\n    'address' : '<string>',\n    'payload' : <boolean>,\n    'kind' : '<string>',\n    'expiration' : '<int64>',\n    'id' : '<string>',\n    'resourceUri' : '<string>',\n    'params' : {\n      '<string>' : '<string>'\n    },\n    'type' : '<string>',\n    'token' : '<string>'\n  })"
-        }
-      }, {
-        "id": "untitled",
+        "id": "get_initial_events",
         "function": {
+          "js": "get_initial_events.js"
+        }
+      }, {
+        "id": "AirtableAction",
+        "function": {
+          "parameters": [{
+            "name": "action",
+            "type": "STRING"
+          }, {
+            "name": "recordId",
+            "type": "STRING"
+          }, {
+            "name": "fields",
+            "type": "OBJECT"
+          }],
+          "js": "AirtableAction.js"
+        }
+      }, {
+        "id": "GetRecordFromEmail",
+        "function": {
+          "parameters": [{
+            "name": "baseId",
+            "default": {
+              "text": "appb2uc6fso2uEzDh"
+            },
+            "type": "STRING"
+          }, {
+            "name": "table",
+            "default": {
+              "text": "Webhook"
+            },
+            "type": "STRING"
+          }],
+          "js": "GetRecordFromEmail.js"
+        },
+        "access": {
+          "requireUser": true
+        }
+      }, {
+        "id": "GetAirtableEntries",
+        "function": {
+          "js": "GetAirtableEntries.js"
+        }
+      }, {
+        "id": "Runner",
+        "function": {
+          "parameters": [{
+            "name": "airtableEntries",
+            "type": "ARRAY"
+          }],
           "js": "untitled.js"
+        }
+      }, {
+        "id": "get_events_by_synctoken",
+        "tql": {
+          "tql": "SELECT * FROM personal_google_calendar.get_calendar_events\n  WHERE calendarId=@calendarId\n  AND maxResults=2500\n  AND syncToken=@syncToken \n"
+        }
+      }, {
+        "id": "copy_calendar_event",
+        "function": {
+          "js": "copy_calendar_event.js"
         }
       }],
       "dataConnections": [{

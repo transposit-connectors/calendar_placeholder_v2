@@ -1,23 +1,20 @@
 (params) => {
   var webhookId = 'transposit-calendar-copy-app';
-  var tableName = "Webhook";
   var webhookSetup = api.run("this.setup_webhook", {webhookId: webhookId})[0];
   api.log(webhookSetup);
   var fields = {googleResourceId: webhookSetup.resourceId, webhookId: webhookId};
   
-  // creates a record with the sync token
-  var recordId = api.run("gcal_copy.InitialSync", {table: tableName})[0];
-  api.log("record id")
-  api.log(recordId);
+  // Get the sync token
+  var initialEvents = api.run("this.get_initial_events")[0];
+  var moment = require('moment-timezone-with-data.js');
+  var now = moment();
   
-  api.run("airtable.update_record", {baseId: "appb2uc6fso2uEzDh", 
-                                     table: tableName, 
-                                     recordId:  recordId, 
-                                     "$body.fields": fields});
-  return recordId;
-}
+  fields.email = api.user().email;
+  fields.syncToken = initialEvents.nextSyncToken;
+  fields.lastTime = now;
+  
+  // Create record
+  var record = api.run("this.AirtableAction", {action: "CREATE", fields: fields});
 
-/*
- * For sample code and reference material, visit
- * https://docs.transposit.com/references/js-operations
- */
+  return record[0].id;
+}

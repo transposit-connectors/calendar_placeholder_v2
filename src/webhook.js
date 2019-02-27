@@ -6,12 +6,13 @@
 
     var userEmail;
     // find all airtable entries and run as user
-    var entriesMap = api.run("gcal_copy.GetAirtableEntriesMap", {table: "Webhook"})[0];
-    Object.keys(entriesMap).forEach((email) => {
-      if (entriesMap[email].googleResourceId === googleResourceId) {
-        userEmail = email;
+    var allEntries = api.run("this.AirtableAction", {action: "GET_ALL"});
+    allEntries.forEach((entry) => {
+      if (entry.fields.googleResourceId == googleResourceId) {
+		userEmail = entry.fields.email;
       }
     });
+
     api.log(entriesMap);
     api.log("user email: " + userEmail);
     
