@@ -4,9 +4,6 @@
       "dependencies": [{
         "name": "transposit/airtable:v2.*.*",
         "alias": "airtable"
-      }, {
-        "name": "transposit/google_calendar:v1.*.*",
-        "alias": "google_calendar"
       }],
       "operations": [{
         "id": "InitialSync",
