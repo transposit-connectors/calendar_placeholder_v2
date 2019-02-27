@@ -7,6 +7,9 @@
       }, {
         "name": "transposit/google_calendar:v1.*.*",
         "alias": "work_google_calendar"
+      }, {
+        "name": "transposit/raw_google_calendar:latest",
+        "alias": "personal_google_calendar"
       }],
       "operations": [{
         "id": "InitialSync",
