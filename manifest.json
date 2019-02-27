@@ -1,15 +1,125 @@
 {
   "v2": {
     "transposit": {
+      "dependencies": [{
+        "name": "transposit/airtable:v2.*.*",
+        "alias": "airtable"
+      }, {
+        "name": "nina/gcal_copy:latest",
+        "alias": "gcal_copy",
+        "exposeOperations": true
+      }, {
+        "name": "transposit/google_calendar:v1.*.*",
+        "alias": "google_calendar"
+      }],
       "operations": [{
-        "id": "hello_world",
-        "description": "Returns \"Hello, world\" in different languages",
+        "id": "InitialSync",
         "function": {
-          "js": "hello_world.js"
+          "js": "InitalSync.js"
         },
         "access": {
           "requireUser": true
         }
+      }, {
+        "id": "webhook",
+        "function": {
+          "parameters": [{
+            "name": "http_event",
+            "default": {
+              "text": "{\"http_method\": \"GET\", \"query_parameters\": {}, \"headers\": {}, \"body\": \"\"}"
+            },
+            "type": "OBJECT"
+          }],
+          "js": "webhook.js"
+        },
+        "access": {
+          "requireApiKey": true,
+          "webhook": true
+        }
+      }, {
+        "id": "setup_webhook",
+        "tql": {
+          "parameters": [{
+            "name": "calendarId",
+            "default": {
+              "text": "primary"
+            },
+            "type": "STRING"
+          }, {
+            "name": "webhookId",
+            "type": "STRING",
+            "required": true
+          }],
+          "tql": "SELECT * FROM gcal_copy.personal_google_calendar.watch_calendar_events\n  WHERE calendarId=@calendarId\n  AND $body=(SELECT {\n    'resourceId' : 'transposit_watcher',\n    'address': 'https://api.transposit.com/app/nina/gcal_copy_webhook/api/v1/execute-http/webhook?api_key=2r22vejsrjutrhihp17anuqd8i',\n    'payload' : true,\n    'kind' : 'api#channel',\n\t'type': 'web_hook'\n  })\n  AND $body.id = @webhookId\n  \n  \n  -- execute-http/webhook?api_key=a7sa61ivbdr5i7bhdgr8q6m1av\n  \n\n"
+        }
+      }, {
+        "id": "GetSyncStatus",
+        "tql": {
+          "tql": "SELECT * FROM gcal_copy.GetSyncStatus\n  WHERE table='Webhook'"
+        },
+        "access": {
+          "requireUser": true
+        }
+      }, {
+        "id": "refresh_all_webhooks",
+        "function": {
+          "js": "refresh_all_webhooks.js"
+        }
+      }, {
+        "id": "StopWatch",
+        "tql": {
+          "parameters": [{
+            "name": "resourceId",
+            "type": "STRING",
+            "required": true
+          }, {
+            "name": "webhookId",
+            "type": "STRING",
+            "required": true
+          }],
+          "tql": "SELECT * FROM gcal_copy.personal_google_calendar.stop_channel\n  WHERE $body.resourceId = @resourceId\n  AND $body.id = @webhookId"
+        }
+      }, {
+        "id": "UnSync",
+        "function": {
+          "parameters": [{
+            "name": "recordId",
+            "type": "STRING",
+            "required": true
+          }],
+          "js": "UnSync.js"
+        },
+        "access": {
+          "requireUser": true
+        }
+      }, {
+        "id": "get_my_settings",
+        "tql": {
+          "tql": "SELECT * FROM google_calendar.get_my_settings\n  WHERE syncToken='<string>'\n  AND quotaUser='<string>'\n  LIMIT 10"
+        }
+      }, {
+        "id": "watch_settings",
+        "tql": {
+          "tql": "SELECT * FROM google_calendar.watch_settings\n  WHERE syncToken='<string>'\n  AND quotaUser='<string>'\n  AND $body=(SELECT {\n    'resourceId' : '<string>',\n    'address' : '<string>',\n    'payload' : <boolean>,\n    'kind' : '<string>',\n    'expiration' : '<int64>',\n    'id' : '<string>',\n    'resourceUri' : '<string>',\n    'params' : {\n      '<string>' : '<string>'\n    },\n    'type' : '<string>',\n    'token' : '<string>'\n  })"
+        }
+      }, {
+        "id": "untitled",
+        "function": {
+          "js": "untitled.js"
+        }
+      }],
+      "dataConnections": [{
+        "ref": "work_google_calendar.raw",
+        "requireConsumerSignin": true
+      }, {
+        "ref": "personal_google_calendar",
+        "requireConsumerSignin": true
+      }, {
+        "ref": "gcal_copy.work_google_calendar.raw",
+        "requireConsumerSignin": true
+      }, {
+        "ref": "gcal_copy.personal_google_calendar",
+        "requireConsumerSignin": true
       }],
       "javascriptAPIVersion": "3",
       "source": "src"
