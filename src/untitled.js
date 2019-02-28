@@ -3,6 +3,7 @@
   var now = moment();
   
   var userInfo = params.userRecord;
+  api.log(userInfo.syncToken);
 
   api.log(api.run("this.get_events_by_synctoken", {syncToken: userInfo.syncToken}));
   var eventsCall = api.run("this.get_events_by_synctoken", {syncToken: userInfo.syncToken})[0];
