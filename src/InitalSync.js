@@ -4,6 +4,7 @@
 
   var webhookId = 'transposit-calendar-copy-app'
   var webhookSetup = api.run("this.setup_webhook", {webhookId: webhookId})[0];
+  api.log("Setup webhook for " + api.user().email + ", resourceId: " + webhookSetup.resourceId);
 
   var fields = {googleResourceId: webhookSetup.resourceId, webhookId: webhookId};
   
