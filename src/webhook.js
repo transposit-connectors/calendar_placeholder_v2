@@ -25,7 +25,8 @@
 
     api.run("this.Runner", {userRcord: userEntry}, {asUser: userEmail});
   } catch (err) {
-    api.log(err);
+    api.log("We got an error");
+    api.log(err.message);
   }
   return {
     status_code: 200,
