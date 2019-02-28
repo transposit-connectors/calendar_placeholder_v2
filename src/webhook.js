@@ -18,15 +18,14 @@
     });
     
 
-    api.log(entriesMap);
+    api.log(allEntries);
     api.log("user email: " + userEmail);
     
     
 
     api.run("this.Runner", {userRcord: userEntry}, {asUser: userEmail});
   } catch (err) {
-    api.log("We got an error");
-    api.log(err.message);
+    api.log("We got an error: " + err.message);
   }
   return {
     status_code: 200,
