@@ -12,7 +12,7 @@
       if (entry.fields.googleResourceId == googleResourceId) {
 		userEmail = entry.fields.email;
         userEntry = entry.fields;
-        userEntry.recordID = entry.id;
+        userEntry.recordId = entry.id;
       }
     });
     
