@@ -138,6 +138,10 @@
       }, {
         "id": "copy_calendar_event",
         "function": {
+          "parameters": [{
+            "name": "personalEvent",
+            "type": "OBJECT"
+          }],
           "js": "copy_calendar_event.js"
         }
       }, {
