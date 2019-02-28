@@ -23,7 +23,7 @@
     
     
 
-    api.run("this.Runner", {userRcord: userEntry}, {asUser: userEmail});
+    api.run("this.Runner", {userRecord: userEntry}, {asUser: userEmail});
   } catch (err) {
     api.log("We got an error: " + err.message);
   }
