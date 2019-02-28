@@ -8,6 +8,7 @@
     var userEntry;
     // find all airtable entries and run as user
     var allEntries = api.run("this.AirtableAction", {action: "GET_ALL"});
+    api.log(allEntries);
     allEntries.forEach((entry) => {
       if (entry.fields.googleResourceId == googleResourceId) {
 		userEmail = entry.fields.email;
