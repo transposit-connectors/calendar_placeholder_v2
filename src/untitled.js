@@ -3,8 +3,8 @@
   var now = moment();
   
   var userEmail = api.user().email;
-
-  var userInfo = params.airtableEntries[userEmail];
+  
+  var userInfo = params.userRecord;
 
 
   var eventsCall = api.run("this.get_events_by_synctoken", {syncToken: userInfo.syncToken})[0];

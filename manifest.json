@@ -119,8 +119,8 @@
         "id": "Runner",
         "function": {
           "parameters": [{
-            "name": "airtableEntries",
-            "type": "ARRAY"
+            "name": "userRecord",
+            "type": "OBJECT"
           }],
           "js": "untitled.js"
         }
