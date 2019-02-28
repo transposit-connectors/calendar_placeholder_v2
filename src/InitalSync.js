@@ -2,7 +2,7 @@
   var moment = require('moment-timezone-with-data.js');
   var now = moment();
 
-  var webhookId = 'transposit-calendar-copy-app-' + now.toISOString().substring(0, 10);
+  var webhookId = 'transposit-calendar-copy-app'
   var webhookSetup = api.run("this.setup_webhook", {webhookId: webhookId})[0];
 
   var fields = {googleResourceId: webhookSetup.resourceId, webhookId: webhookId};

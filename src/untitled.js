@@ -13,7 +13,7 @@
   eventsCall.items.forEach((calEvent) => {
     api.log(moment(calEvent.created).diff(moment(userRecord.lastTime), 'seconds'))
     if (moment(calEvent.created).diff(moment(userRecord.lastTime), 'seconds') > 0) {
-      // shortcut to tell us that this event was just created
+      // shortcut to tell us that this event was created since the last time we synced
       bulkOperations.push({operation: "this.copy_calendar_event", parameters: {personalEvent: calEvent}});
     }
   });
