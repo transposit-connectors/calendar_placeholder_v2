@@ -1,6 +1,6 @@
 (params) => {
   var now = new Date();
-  var operationParams = {calendarId: params.calendarId,
+  var operationParams = {calendarId: 'primary',
                         showDeleted: false,
                         timeMin: now,
 						q: "blah random query we only need the sync token",
