@@ -1,6 +1,6 @@
 # Calendar Placeholders
 
-This app will duplicate and obfuscate events from your personal calendar to your work calendar, so your coworkers can see that you'll be busy but not any other details beyond that. To try it out:
+This app will duplicate and obfuscate events from your personal calendar to your work calendar, so your coworkers can see that you'll be busy but not any other details. To try it out:
 
   1. Go to the [hosted app](https://calendar-placeholder-gu6nh.transposit.io/).
   2. Sign in with Google, then authorize with your work and personal calendars
