@@ -26,8 +26,3 @@
     body: "Done"
   };
 }
-
-/*
- * For sample code and reference material, visit
- * https://docs.transposit.com/building/webhooks
- */
