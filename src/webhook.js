@@ -13,12 +13,14 @@
 		userEmail = entry.fields.email;
         userEntry = entry.fields;
         userEntry.recordId = entry.id;
+        api.log("found user");
       }
     });
   
     api.run("this.Runner", {userRecord: userEntry}, {asUser: userEmail});
   } catch (err) {
     api.log("We got an error: " + err.message);
+    api.log("user email: " + userEmail);
   }
   return {
     status_code: 200,
