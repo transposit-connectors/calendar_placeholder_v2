@@ -120,7 +120,8 @@
         "function": {
           "parameters": [{
             "name": "userRecord",
-            "type": "OBJECT"
+            "type": "OBJECT",
+            "required": true
           }],
           "js": "untitled.js"
         }
