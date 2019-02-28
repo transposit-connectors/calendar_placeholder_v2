@@ -14,19 +14,6 @@
       "operations": [{
         "id": "InitialSync",
         "function": {
-          "parameters": [{
-            "name": "baseId",
-            "default": {
-              "text": "appb2uc6fso2uEzDh"
-            },
-            "type": "STRING"
-          }, {
-            "name": "table",
-            "default": {
-              "text": "Webhook"
-            },
-            "type": "STRING"
-          }],
           "js": "InitalSync.js"
         },
         "access": {
@@ -62,7 +49,7 @@
             "type": "STRING",
             "required": true
           }],
-          "tql": "SELECT * FROM gcal_copy.personal_google_calendar.watch_calendar_events\n  WHERE calendarId=@calendarId\n  AND $body=(SELECT {\n    'resourceId' : 'transposit_watcher',\n    'address': 'https://api.transposit.com/app/transposit-sample/calendar_placeholder/api/v1/execute-http/webhook?api_key=2r22vejsrjutrhihp17anuqd8i',\n    'payload' : true,\n    'kind' : 'api#channel',\n\t'type': 'web_hook'\n  })\n  AND $body.id = @webhookId\n \n  \n\n"
+          "tql": "SELECT * FROM gcal_copy.personal_google_calendar.watch_calendar_events\n  WHERE calendarId=@calendarId\n  AND $body=(SELECT {\n    'resourceId' : 'transposit_watcher',\n    'address': 'https://api.transposit.com/app/transposit-sample/calendar_placeholder/api/v1/execute-http/webhook?api_key=g9igv9041b4mqu7f40k23hfn6u',\n    'payload' : true,\n    'kind' : 'api#channel',\n\t'type': 'web_hook',\n    'params': {'ttl' : '86400'}\n  })\n  AND $body.id = @webhookId\n \n  \n\n"
         }
       }, {
         "id": "refresh_all_webhooks",
@@ -129,7 +116,26 @@
           "js": "AirtableAction.js"
         }
       }, {
-        "id": "GetRecordFromEmail",
+        "id": "Runner",
+        "function": {
+          "parameters": [{
+            "name": "airtableEntries",
+            "type": "ARRAY"
+          }],
+          "js": "untitled.js"
+        }
+      }, {
+        "id": "get_events_by_synctoken",
+        "tql": {
+          "tql": "SELECT * FROM personal_google_calendar.get_calendar_events\n  WHERE calendarId=@calendarId\n  AND maxResults=2500\n  AND syncToken=@syncToken \n"
+        }
+      }, {
+        "id": "copy_calendar_event",
+        "function": {
+          "js": "copy_calendar_event.js"
+        }
+      }, {
+        "id": "GetSyncStatus",
         "function": {
           "parameters": [{
             "name": "baseId",
@@ -150,28 +156,9 @@
           "requireUser": true
         }
       }, {
-        "id": "GetAirtableEntries",
+        "id": "untitled_1",
         "function": {
-          "js": "GetAirtableEntries.js"
-        }
-      }, {
-        "id": "Runner",
-        "function": {
-          "parameters": [{
-            "name": "airtableEntries",
-            "type": "ARRAY"
-          }],
-          "js": "untitled.js"
-        }
-      }, {
-        "id": "get_events_by_synctoken",
-        "tql": {
-          "tql": "SELECT * FROM personal_google_calendar.get_calendar_events\n  WHERE calendarId=@calendarId\n  AND maxResults=2500\n  AND syncToken=@syncToken \n"
-        }
-      }, {
-        "id": "copy_calendar_event",
-        "function": {
-          "js": "copy_calendar_event.js"
+          "js": "untitled_1.js"
         }
       }],
       "dataConnections": [{

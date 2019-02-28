@@ -1,5 +1,10 @@
 (params) => {
-  api.ru
+  var moment = require('moment-timezone-with-data.js');
+  var now = moment();
+  api.log(now);
+  return {
+    mission: "complete"
+  };
 }
 
 /*
