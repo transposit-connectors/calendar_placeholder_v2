@@ -2,7 +2,6 @@
   try {
     api.log(http_event);
     var googleResourceId = http_event.headers["X-Goog-Resource-ID"];
-    api.log("google resource id: " + googleResourceId);
 
     var userEmail;
     var userEntry;
@@ -16,13 +15,7 @@
         userEntry.recordId = entry.id;
       }
     });
-    
-
-    api.log(allEntries);
-    api.log("user email: " + userEmail);
-    
-    
-
+  
     api.run("this.Runner", {userRecord: userEntry}, {asUser: userEmail});
   } catch (err) {
     api.log("We got an error: " + err.message);
