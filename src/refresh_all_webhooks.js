@@ -6,9 +6,10 @@
     
   	var ran = api.runForAllUsers("this.setup_webhook", {webhookId: webhookId});
   } catch (err) {
+    // We'll error if the webhook doesn't need to be refreshed
     api.log("Error: " + err.message);
   }
-  api.log(ran);
+  
   return {
     mission: "complete"
   };
