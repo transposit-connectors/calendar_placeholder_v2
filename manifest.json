@@ -8,7 +8,7 @@
         "name": "transposit/google_calendar:v1.*.*",
         "alias": "work_google_calendar"
       }, {
-        "name": "transposit/raw_google_calendar:latest",
+        "name": "transposit/raw_google_calendar:v1.*.*",
         "alias": "personal_google_calendar"
       }],
       "operations": [{
