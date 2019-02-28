@@ -21,6 +21,7 @@
   } catch (err) {
     api.log("We got an error: " + err.message);
     api.log("user email: " + userEmail);
+    throw new Error(err.message);
   }
   return {
     status_code: 200,

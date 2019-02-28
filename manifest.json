@@ -68,7 +68,7 @@
             "type": "STRING",
             "required": true
           }],
-          "tql": "SELECT * FROM personal_google_calendar.stop_channel\n  WHERE $body.resourceId = @resourceId\n  AND $body.id = @webhookId"
+          "tql": "SELECT * FROM work_google_calendar.stop_channel\n  WHERE $body.resourceId = @resourceId\n  AND $body.id = @webhookId"
         }
       }, {
         "id": "UnSync",
