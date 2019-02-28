@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
   <!-- Transposit SDK -->
   <script src="https://unpkg.com/transposit@^0.7.0/dist/bundle.prod.js"></script>
@@ -33,63 +31,84 @@
       <circle fill="#1D8A48" cx="42" cy="36" r="6"/>
     </g>
   </svg>
-  <h1>Add Birthdays to Google Calendar</h1>
+  <h1>Sync calendars</h1>
   <p class="text-secondary">
-    Creates yearly-recurring events on your Google calendar for your friends' birthdays
+    Create a "busy" placeholder on your work calendar every time you create an event on your personal calendar.
   </p>
-  <div>Name: <input id="name"/></div>
-  <div>Birthday (MM/DD): <input id="birthday"/></div>
-  <div>
-    <div>
-      <button class="btn-lg" id="create">Create event</button>
-    </div>
-    <div>
-      <button class="btn-lg" id="undo">Undo</button>
-    </div>
+  <div><button class="btn-lg" id="sync">Sync</button></div>
+  <div><button class="btn-lg" id="unSync">UnSync</button></div>
+</div>
+<div class="container mt-3 mt-md-5">
+  <div id="loading" class="alert alert-warning" role="alert">
+    Loading...
   </div>
-  <div class="container mt-3 mt-md-5">
-    <div id="loading" class="alert alert-warning" role="alert">
-      Loading...
+  <div id="failure" class="alert alert-warning" role="alert">
+    Operation failed. See JavaScript console.
+  </div>
+  <div id="success" class="card">
+    <h5 class="card-header">Results</h5>
+    <div id="results" class="card-body">
+      Success!
     </div>
-    <div id="failure" class="alert alert-warning" role="alert">
-      Operation failed. See JavaScript console.
-    </div>
-    <div id="success" class="card">
-      <h5 class="card-header">Results</h5>
-      <div id="results" class="card-body">
-        <!-- Results written here -->
-      </div>
-    </div>
+    <div id="disclaimer" class="card-body" style="font-size: 10px">Please note that if you move your personal calendar events, you must manually move the corresponding work calendar event.</div>
   </div>
 </div>
 <script>
   $("#failure").hide();
   $("#success").hide();
-  $("#undo").hide();
+  $("#disclaimer").hide();
+  $("#loading").show();
+  $("#sync").hide();
+  $("#unSync").hide();
 
-  var eventId;
 
-  $("#create").click(() => {
-    var name = $("#name").val();
-    var date = $("#date").val();
+  var recordId = "";
 
-    transposit.runOperation("AddBirthday", {name, date})
+  transposit.runOperation("GetSyncStatus")
+      .then((response) => {
+        if (response.status !== "SUCCESS") {
+          throw response;
+        }
+
+        $("#loading").hide();
+
+        if (!!response.result.results[0]) {
+          recordId = response.result.results[0];
+          $("#unSync").show();
+        } else {
+          $("#sync").show();
+        }
+
+      })
+      .catch((response) => {
+        console.log(response);
+        if (response.requestId) {
+          console.log(`Experienced an error running an operation! View the debug logs here: ${host}/t/${maintainer}/${applicationName}/monitor/${response.requestId}`);
+        } else {
+          console.log(`The operation did not run at all. Try again, or check the deployment configurations if the problem persists: ${host}/t/${maintainer}/${applicationName}/deploy`);
+        }
+
+        $("#loading").hide();
+        $("#failure").show();
+      });
+
+  $("#unSync").click(function () {
+    $("#loading").show();
+    transposit.runOperation("UnSync", {recordId: recordId})
         .then((response) => {
           if (response.status !== "SUCCESS") {
             throw response;
           }
 
-          const results = response.result.results;
-          eventId = results[0].id;
-
-          $("#results").text("Added event " + name + "'s Birthday to your calendar on " + date);
-
-
           $("#loading").hide();
           $("#success").show();
-          $("#undo").show();
+          $("#unSync").hide();
+          $("#sync").show();
+          $("#results").text("Success!");
+          $("#disclaimer").hide();
         })
         .catch((response) => {
+          console.log(response);
           if (response.requestId) {
             console.log(`Experienced an error running an operation! View the debug logs here: ${host}/t/${maintainer}/${applicationName}/monitor/${response.requestId}`);
           } else {
@@ -99,22 +118,29 @@
           $("#loading").hide();
           $("#failure").show();
         });
-
   });
 
-  $("#undo").click(() => {
-    var name = $("#name").val();
-    transposit.runOperation("Undo", {eventId})
+  $("#sync").click(function () {
+    $("#loading").show();
+    transposit.runOperation("InitialSync")
         .then((response) => {
           if (response.status !== "SUCCESS") {
             throw response;
           }
 
+          recordId = response.result.results[0];
+
           $("#loading").hide();
           $("#success").show();
-          $("#results").text("Removed event " + name + "'s Birthday");
+          $("#unSync").show();
+          $("#sync").hide();
+
+          $("#results").text("Success! We'll copy over any personal events you create starting now. You can expect to see them in your work calendar within an hour.");
+          $("#disclaimer").show();
+
         })
         .catch((response) => {
+          console.log(response);
           if (response.requestId) {
             console.log(`Experienced an error running an operation! View the debug logs here: ${host}/t/${maintainer}/${applicationName}/monitor/${response.requestId}`);
           } else {
@@ -124,10 +150,7 @@
           $("#loading").hide();
           $("#failure").show();
         });
-
   });
-
-
 </script>
 </body>
 </html>
