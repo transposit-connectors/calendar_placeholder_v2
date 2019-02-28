@@ -4,7 +4,7 @@
 
   var webhookId = 'transposit-calendar-copy-app-' + now.toISOString().substring(0, 10);
   var webhookSetup = api.run("this.setup_webhook", {webhookId: webhookId})[0];
-  api.log(webhookSetup);
+
   var fields = {googleResourceId: webhookSetup.resourceId, webhookId: webhookId};
   
   // Get the sync token

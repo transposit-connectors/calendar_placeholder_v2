@@ -1,8 +1,12 @@
 (params) => {
   try {
-  	var ran = api.runForAllUsers("this.setup_webhook");
+    var moment = require('moment-timezone-with-data.js');
+ 	var now = moment();
+  	var webhookId = 'transposit-calendar-copy-app-' + now.toISOString().substring(0, 10);
+    
+  	var ran = api.runForAllUsers("this.setup_webhook", {webhookId: webhookId});
   } catch (err) {
-    api.log(err);
+    api.log("Error: " + err.message);
   }
   api.log(ran);
   return {

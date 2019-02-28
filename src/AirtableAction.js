@@ -10,6 +10,7 @@
     airtableParams.recordId = params.recordId;
   }
   else if (params.action == "GET_ALL") {
+    // We can only filter on != in sql right now
     var sqlQuery = "SELECT id, fields FROM airtable.get_records WHERE baseId='" + baseId + "' AND table='" + table + "' AND fields.email != ''";
     return api.query(sqlQuery);
     
