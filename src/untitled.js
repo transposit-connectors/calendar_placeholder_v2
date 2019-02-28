@@ -2,11 +2,9 @@
   var moment = require('moment-timezone-with-data.js');
   var now = moment();
   
-  var userEmail = api.user().email;
-  
   var userInfo = params.userRecord;
 
-
+  api.log(api.run("this.get_events_by_synctoken", {syncToken: userInfo.syncToken}));
   var eventsCall = api.run("this.get_events_by_synctoken", {syncToken: userInfo.syncToken})[0];
   api.log(eventsCall);
 
