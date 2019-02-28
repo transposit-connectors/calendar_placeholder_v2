@@ -128,6 +128,11 @@
       }, {
         "id": "get_events_by_synctoken",
         "tql": {
+          "parameters": [{
+            "name": "syncToken",
+            "type": "STRING",
+            "required": true
+          }],
           "tql": "SELECT * FROM personal_google_calendar.get_calendar_events\n  WHERE calendarId=\"primary\"\n  AND maxResults=2500\n  AND syncToken=@syncToken \n"
         }
       }, {
