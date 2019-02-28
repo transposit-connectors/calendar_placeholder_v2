@@ -1,7 +1,5 @@
 (params) => {
   var allEntries = api.run("this.AirtableAction", {action: "GET_ALL"});
-
-  api.log(allEntries);
   var email = api.user().email;
   
   var entriesMap = {};
