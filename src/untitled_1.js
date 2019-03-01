@@ -1,6 +1,5 @@
 (params) => {
-  api.runForAllUsers("this.untitled_2");
-  api.runForAllUsers("this.untitled_3");
+  api.runForAllUsers("this.get_initial_events");
 }
 
 /*
