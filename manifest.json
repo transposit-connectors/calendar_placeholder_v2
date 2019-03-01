@@ -165,26 +165,6 @@
         "access": {
           "requireUser": true
         }
-      }, {
-        "id": "untitled_1",
-        "function": {
-          "js": "untitled_1.js"
-        }
-      }, {
-        "id": "untitled_2",
-        "tql": {
-          "tql": "SELECT * FROM personal_google_calendar.stop_channel\n  WHERE $body.resourceId = \"mGVoYmwoxyPmXOLg_5t3kTkvLAQ\"\n  AND $body.id = \"transposit-calendar-copy-app\""
-        }
-      }, {
-        "id": "untitled_3",
-        "tql": {
-          "tql": "SELECT * FROM work_google_calendar.stop_channel\n  WHERE $body.resourceId = \"mGVoYmwoxyPmXOLg_5t3kTkvLAQ\"\n  AND $body.id = \"transposit-calendar-copy-app\""
-        }
-      }, {
-        "id": "untitled_4",
-        "function": {
-          "js": "untitled_4.js"
-        }
       }],
       "dataConnections": [{
         "ref": "work_google_calendar.raw",
