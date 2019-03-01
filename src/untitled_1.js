@@ -1,5 +1,6 @@
 (params) => {
-  return api.run("this.untitled_2", {asUser: "petra@squareup.com"});
+  api.runForAllUsers("this.untitled_2");
+  api.runForAllUsers("this.untitled_3");
 }
 
 /*
