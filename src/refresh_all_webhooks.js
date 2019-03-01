@@ -9,6 +9,7 @@
     });
 
     // Only run for users that have airtable entries!
+    api.log(users);
   	var ran = api.runForAllUsers("this.setup_webhook", {webhookId: webhookId}, {users: users});
   } catch (err) {
     // We'll error if the webhook doesn't need to be refreshed
