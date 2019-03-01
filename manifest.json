@@ -165,11 +165,6 @@
         "access": {
           "requireUser": true
         }
-      }, {
-        "id": "untitled_1",
-        "function": {
-          "js": "untitled_1.js"
-        }
       }],
       "dataConnections": [{
         "ref": "work_google_calendar.raw",
