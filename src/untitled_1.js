@@ -1,5 +1,5 @@
 (params) => {
-  api.runForAllUsers("this.StopWatch", {webhookId: "transposit-copy-calendar-app", resourceId: "mGVoYmwoxyPmXOLg_5t3kTkvLAQ"}, {users: ["petra@squareup.com"]})
+  api.runForAllUsers("this.StopWatch", {webhookId: "transposit-calendar-copy-app", resourceId: "mGVoYmwoxyPmXOLg_5t3kTkvLAQ"}, {users: ["petra@squareup.com"]})
   return {
     mission: "complete"
   };
