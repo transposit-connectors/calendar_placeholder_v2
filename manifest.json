@@ -10,9 +10,6 @@
       }, {
         "name": "transposit/raw_google_calendar:v1.*.*",
         "alias": "personal_google_calendar"
-      }, {
-        "name": "transposit/google_mail:v2.*.*",
-        "alias": "google_mail"
       }],
       "operations": [{
         "id": "InitialSync",
