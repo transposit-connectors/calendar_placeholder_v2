@@ -1,6 +1,6 @@
 (params) => {
   var email = api.user().email;
-  var record = api.get(email);
+  var record = stash.get(email);
   api.log(record);
   
   return api.run("personal_google_calendar.stop_channel", {$body: {resourceId: record.googleResourceId, id: record.webhookId}});
