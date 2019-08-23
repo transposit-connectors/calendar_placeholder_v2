@@ -5,7 +5,7 @@
   // Get the sync token
   var initialEvents = api.run("this.get_initial_events")[0];
   
-  var webhookId = 'transposit-calendar-copy-app'
+  var webhookId = env.get("webhookId");
   var webhookSetup = api.run("this.setup_webhook", {webhookId: webhookId})[0];
   api.log("Setup webhook for " + api.user().email + ", resourceId: " + webhookSetup.resourceId);
 
