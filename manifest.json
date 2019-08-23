@@ -122,7 +122,8 @@
       }],
       "dataConnections": [{
         "ref": "work_google_calendar.raw",
-        "requireConsumerSignin": true
+        "requireConsumerSignin": true,
+        "title": "Work google calendar"
       }, {
         "ref": "personal_google_calendar",
         "requireConsumerSignin": true,
