@@ -125,7 +125,8 @@
         "requireConsumerSignin": true
       }, {
         "ref": "personal_google_calendar",
-        "requireConsumerSignin": true
+        "requireConsumerSignin": true,
+        "title": "Personal google calendar"
       }, {
         "ref": "gcal_copy.work_google_calendar.raw",
         "requireConsumerSignin": true
