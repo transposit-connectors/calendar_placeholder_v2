@@ -138,7 +138,7 @@
       "javascriptAPIVersion": "3",
       "source": "src"
     },
-    "description": "Duplicate (and obfuscate) events from your personal calendar to your work calendar, so your coworkers can see you'll be busy, but not any other details.",
+    "description": "Duplicate (and obfuscate) events from your personal calendar to your work calendar, so your coworkers can see you'll be busy, but not any other details. After you've added your calendars, click \"Return to app\" and press the \"Sync\" button.",
     "displayName": "Calendar Placeholders"
   }
 }
