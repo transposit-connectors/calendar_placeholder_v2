@@ -1,6 +1,6 @@
 (params) => {
   try {
-  	var webhookId = 'transposit-calendar-copy-app'
+  	var webhookId = 'transposit-calendar-copy-app-v2'
     var users = stash.listKeys();
 
   	var ran = api.runForAllUsers("this.setup_webhook", {webhookId: webhookId}, {users: users});
