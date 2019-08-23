@@ -5,8 +5,6 @@
 
     var userEmail;
     var userEntry;
-    // find all airtable entries and run as user
-    var allEntries = api.run("this.AirtableAction", {action: "GET_ALL"});
     
     var users = stash.listKeys();
     users.forEach(email => {
@@ -17,7 +15,7 @@
       }  
     })
   
-    api.run("this.Runner", {userRecord: userEntry}, {asUser: email});
+    api.run("this.Runner", {userRecord: userEntry}, {asUser: userEmail});
   } catch (err) {
     api.log("We got an error: " + err.message);
     api.log("user email: " + userEmail);
