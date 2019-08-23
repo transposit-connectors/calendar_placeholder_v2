@@ -136,7 +136,12 @@
         "requireConsumerSignin": true
       }],
       "javascriptAPIVersion": "3",
-      "source": "src"
+      "source": "src",
+      "appSettings": [{
+        "name": "webhookId",
+        "type": "STRING",
+        "default": "transposit-calendar-copy-app-v2"
+      }]
     },
     "description": "Duplicate (and obfuscate) events from your personal calendar to your work calendar, so your coworkers can see you'll be busy, but not any other details. After you've added your calendars, click \"Return to app\" and press the \"Sync\" button.",
     "displayName": "Calendar Placeholders"
