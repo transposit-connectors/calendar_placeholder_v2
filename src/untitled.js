@@ -1,8 +1,9 @@
 (params) => {
   var moment = require('moment-timezone-with-data.js');
   var now = moment();
+  var email = api.user().email;
 
-  var userRecord = params.userRecord;
+  var userRecord = stash.get(email);
   var eventsCall = api.run("this.get_events_by_synctoken", {syncToken: userRecord.syncToken})[0];
 
   var bulkOperations = [];
@@ -16,8 +17,10 @@
     }
   });
 
-  // Refresh the airtable entry
-  bulkOperations.push({operation: "this.AirtableAction", parameters: {action: "UPDATE", recordId: userRecord.recordId, "fields": {syncToken: eventsCall.nextSyncToken, lastTime: now}}});
+  // Refresh the stash entry
+  userRecord.syncToken = eventsCall.nextSyncToken
+  userRecord.lastTime = now
+  stash.put(email, userRecord);
   api.runBulk(bulkOperations);
 
   return "done";

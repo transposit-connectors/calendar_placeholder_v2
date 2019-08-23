@@ -57,39 +57,8 @@
           "js": "refresh_all_webhooks.js"
         }
       }, {
-        "id": "StopWatch",
-        "tql": {
-          "parameters": [{
-            "name": "resourceId",
-            "type": "STRING",
-            "required": true
-          }, {
-            "name": "webhookId",
-            "type": "STRING",
-            "required": true
-          }],
-          "tql": "SELECT * FROM personal_google_calendar.stop_channel\n  WHERE $body.resourceId = @resourceId\n  AND $body.id = @webhookId"
-        }
-      }, {
         "id": "UnSync",
         "function": {
-          "parameters": [{
-            "name": "recordId",
-            "type": "STRING",
-            "required": true
-          }, {
-            "name": "baseId",
-            "default": {
-              "text": "appb2uc6fso2uEzDh"
-            },
-            "type": "STRING"
-          }, {
-            "name": "table",
-            "default": {
-              "text": "Webhook"
-            },
-            "type": "STRING"
-          }],
           "js": "UnSync.js"
         },
         "access": {
@@ -99,21 +68,6 @@
         "id": "get_initial_events",
         "function": {
           "js": "get_initial_events.js"
-        }
-      }, {
-        "id": "AirtableAction",
-        "function": {
-          "parameters": [{
-            "name": "action",
-            "type": "STRING"
-          }, {
-            "name": "recordId",
-            "type": "STRING"
-          }, {
-            "name": "fields",
-            "type": "OBJECT"
-          }],
-          "js": "AirtableAction.js"
         }
       }, {
         "id": "Runner",

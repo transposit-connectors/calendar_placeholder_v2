@@ -7,17 +7,17 @@
     var userEntry;
     // find all airtable entries and run as user
     var allEntries = api.run("this.AirtableAction", {action: "GET_ALL"});
-    api.log(allEntries);
-    allEntries.forEach((entry) => {
-      if (entry.fields.googleResourceId == googleResourceId) {
-		userEmail = entry.fields.email;
-        userEntry = entry.fields;
-        userEntry.recordId = entry.id;
-        api.log("found user");
-      }
-    });
+    
+    var users = stash.listKeys();
+    users.forEach(email => {
+  	  var maybeUser = stash.get(email);
+      if (userEntry.googleResourceId == googleResourceId) {
+        userEntry = maybeUser;
+        userEmail = email;
+      }  
+    })
   
-    api.run("this.Runner", {userRecord: userEntry}, {asUser: userEmail});
+    api.run("this.Runner", {userRecord: userEntry}, {asUser: email});
   } catch (err) {
     api.log("We got an error: " + err.message);
     api.log("user email: " + userEmail);

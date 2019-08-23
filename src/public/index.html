@@ -94,7 +94,7 @@
 
   $("#unSync").click(function () {
     $("#loading").show();
-    transposit.runOperation("UnSync", {recordId: recordId})
+    transposit.runOperation("UnSync")
         .then((response) => {
           if (response.status !== "SUCCESS") {
             throw response;
@@ -127,8 +127,6 @@
           if (response.status !== "SUCCESS") {
             throw response;
           }
-
-          recordId = response.result.results[0];
 
           $("#loading").hide();
           $("#success").show();

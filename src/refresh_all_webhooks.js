@@ -1,15 +1,8 @@
 (params) => {
   try {
   	var webhookId = 'transposit-calendar-copy-app'
-    var userRecords = api.run("this.AirtableAction", {action: "GET_ALL"});
-    
-    var users = [];
-    userRecords.forEach((record) => {
-    	users.push(record.fields.email);
-    });
+    var users = stash.listKeys();
 
-    // Only run for users that have airtable entries!
-    api.log(users);
   	var ran = api.runForAllUsers("this.setup_webhook", {webhookId: webhookId}, {users: users});
   } catch (err) {
     // We'll error if the webhook doesn't need to be refreshed

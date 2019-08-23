@@ -1,8 +1,11 @@
 (params) => {
-  var record = api.run("this.AirtableAction", {action: "GET", recordId: params.recordId})[0];
+  var email = api.user().email;
+  var record = api.get(email);
   api.log(record);
-  api.run("this.StopWatch", {resourceId: record.fields.googleResourceId, webhookId: record.fields.webhookId});
-  api.run("this.AirtableAction", {action: "DELETE", recordId: params.recordId});
+  
+  return api.run("personal_google_calendar.stop_channel", {$body: {resourceId: record.googleResourceId, id: record.webhookId}});
+  
+  stash.put(email, null);
 
   return {
     mission: "complete"
