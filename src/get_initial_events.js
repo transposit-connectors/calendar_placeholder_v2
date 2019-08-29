@@ -1,5 +1,4 @@
 (params) => {
-  api.log(api.user());
   var now = new Date();
   var operationParams = {calendarId: 'primary',
                         showDeleted: false,
