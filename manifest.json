@@ -2,9 +2,6 @@
   "v2": {
     "transposit": {
       "dependencies": [{
-        "name": "transposit/airtable:v2.*.*",
-        "alias": "airtable"
-      }, {
         "name": "transposit/google_calendar:v1.*.*",
         "alias": "work_google_calendar"
       }, {
@@ -14,7 +11,8 @@
       "operations": [{
         "id": "InitialSync",
         "function": {
-          "js": "InitalSync.js"
+          "js": "InitalSync.js",
+          "lang": "js"
         },
         "access": {
           "requireUser": true
@@ -29,7 +27,8 @@
             },
             "type": "OBJECT"
           }],
-          "js": "webhook.js"
+          "js": "webhook.js",
+          "lang": "js"
         },
         "access": {
           "requireApiKey": true,
@@ -54,12 +53,14 @@
       }, {
         "id": "refresh_all_webhooks",
         "function": {
-          "js": "refresh_all_webhooks.js"
+          "js": "refresh_all_webhooks.js",
+          "lang": "js"
         }
       }, {
         "id": "UnSync",
         "function": {
-          "js": "UnSync.js"
+          "js": "UnSync.js",
+          "lang": "js"
         },
         "access": {
           "requireUser": true
@@ -67,7 +68,8 @@
       }, {
         "id": "get_initial_events",
         "function": {
-          "js": "get_initial_events.js"
+          "js": "get_initial_events.js",
+          "lang": "js"
         }
       }, {
         "id": "Runner",
@@ -77,7 +79,8 @@
             "type": "OBJECT",
             "required": true
           }],
-          "js": "untitled.js"
+          "js": "untitled.js",
+          "lang": "js"
         }
       }, {
         "id": "get_events_by_synctoken",
@@ -96,7 +99,8 @@
             "name": "personalEvent",
             "type": "OBJECT"
           }],
-          "js": "copy_calendar_event.js"
+          "js": "copy_calendar_event.js",
+          "lang": "js"
         }
       }, {
         "id": "GetSyncStatus",
@@ -114,7 +118,8 @@
             },
             "type": "STRING"
           }],
-          "js": "GetRecordFromEmail.js"
+          "js": "GetRecordFromEmail.js",
+          "lang": "js"
         },
         "access": {
           "requireUser": true
