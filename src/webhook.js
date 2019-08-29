@@ -7,10 +7,8 @@
     var userEntry;
     
     var users = stash.listKeys();
-    api.log(users);
     users.forEach((email) => {
   	  var maybeUser = stash.get(email);
-      api.log(maybeUser);
       if (maybeUser.googleResourceId == googleResourceId) {
         userEntry = maybeUser;
         userEmail = email;
