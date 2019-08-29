@@ -128,7 +128,8 @@
       "dataConnections": [{
         "ref": "work_google_calendar.raw",
         "requireConsumerSignin": true,
-        "title": "Work google calendar"
+        "title": "Work google calendar",
+        "description": "After you've added both calendars, click \"Return to app\" and press the \"Sync\" button."
       }, {
         "ref": "personal_google_calendar",
         "requireConsumerSignin": true,
