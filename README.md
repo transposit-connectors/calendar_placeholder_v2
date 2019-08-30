@@ -4,7 +4,7 @@ This app will duplicate and obfuscate events from your personal calendar to your
 
   1. Go to the [hosted app](https://calendar-placeholder-gu6nh.transposit.io/).
   2. Sign in with Google, then authorize with your work and personal calendars
-  3. Click "Return to calendar_placeholder"
+  3. Click "Return to app" 
   4. Click Sync
 
 ## How it's built:
